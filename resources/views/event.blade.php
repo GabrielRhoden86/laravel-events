@@ -14,13 +14,15 @@
 <body>
     <div class="row" style="width:100%; margin-top:5%;">
         <div class="container text-center">
-         @if (session('msg'))
+            <div class="col-md-2">
+         {{-- @if (session('msg')) --}}
                 <div class="alert alert-success" style="border:solid rgb(149, 172, 152) 1px; width:100%;">
                     <p>{{ session('msg') . ' Quantidade:' . session('quantidadeProduto') . ' Estoque:' . session('estoqueProduto') }}
                     </p>
                 </div>
-            @endif
-            {{ session()->forget('msg') }}
+            </div>
+            {{-- @endif --}}
+            {{-- {{ session()->forget('msg') }} --}}
             <h3>Events</h3>
             <form action="/eventProcess/1" method="POST">
                 @csrf
