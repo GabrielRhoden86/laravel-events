@@ -25,16 +25,18 @@ class EnviarEmailUser implements ShouldQueue
 
     public function handle(): void
     {
-        //Lógica para enviar o e-mail
-        Mail::send('emails', ['dados' => $this->usuario], function ($message) {
-            $usuario_cadastrado = ucfirst($this->usuario->name);
-            $message->from('gabrielrhodden@gmail.com');
-            $message->to($this->usuario->email, $this->usuario->name)->subject("Bem-Vindo Sr(a) {$usuario_cadastrado} a Tech Sistems");
-        });
-    }
 
-    public function failed(Throwable $exception)
-    {
-        Log::error("Falha ao enviar e-mail para {$this->usuario->email}: {$exception->getMessage()}");
+        try {
+            //Lógica para enviar o e-mail
+            Mail::send('emails', ['dados' => $this->usuario], function ($message) {
+                $usuario_cadastrado = ucfirst($this->usuario->name);
+                $message->from('gabrielrhodden@gmail.com');
+                $message->to($this->usuario->email, $this->usuario->name)->subject("Bem-Vindo Sr(a) {$usuario_cadastrado} a Tech Sistems");
+            });
+            Log::info('Job executado com sucesso.');
+        } catch (\Exception $e) {
+            Log::error('Erro no job: ' . $e->getMessage());
+            throw $e;
+        }
     }
 }

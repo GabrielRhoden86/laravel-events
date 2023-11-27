@@ -21,7 +21,7 @@
         <div class="d-flex justify-content-center mt-5">
             <form action="/saveUserForm/{name}/{email}" method="get">
                 <input type="text" name="name" placeholder="Digite o nome" required>
-                <input type="email" name="email" placeholder="Digite o e-mail" required>
+                <input type="email" name="email" value="gabrielrhodden@gmail.com" required>
                 <button type="submit" class="btn btn-primary p-1 mb-1">Salvar Usuário</button>
             </form>
         </div>
