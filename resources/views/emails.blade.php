@@ -25,3 +25,30 @@
 </body>
 
 </html>
+
+
+
+{{-- <h1 id="relogio"></h1>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        exibirRelogio();
+        setInterval(exibirRelogio, 1000); // Atualizar a cada segundo (1000 milissegundos)
+    });
+
+    function exibirRelogio() {
+        const elementoRelogio = document.getElementById("relogio");
+        const dataAtual = new Date();
+
+        const horas = pad(dataAtual.getHours());
+        const minutos = pad(dataAtual.getMinutes());
+        const segundos = pad(dataAtual.getSeconds());
+
+        const formatoRelogio = `${horas}:${minutos}:${segundos}`;
+        elementoRelogio.innerText = formatoRelogio;
+    }
+
+    function pad(valor) {
+        return valor < 10 ? "0" + valor : valor;
+    }
+</script> --}}
