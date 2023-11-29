@@ -15,9 +15,9 @@ class ControllerUser extends Controller
         $user->password = bcrypt(123456);
         $user->name = $request->name;
         $user->save();
-        EnviarEmailUser::dispatch($user);
+        EnviarEmailUser::dispatch($user); //job
 
-        session(['msg' => "Cadastro realizado com sucesso!"]);
+        session(["msg" => "Cadastro realizado com sucesso!"]);
         return redirect("/enviaEmail");
     }
 }

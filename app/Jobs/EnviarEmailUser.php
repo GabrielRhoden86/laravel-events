@@ -32,9 +32,4 @@ class EnviarEmailUser implements ShouldQueue
             $message->to($this->usuario->email, $this->usuario->name)->subject("Bem-Vindo Sr(a) {$usuario_cadastrado} a Tech Sistems");
         });
     }
-
-    public function failed(Throwable $exception)
-    {
-        Log::error("Falha ao enviar e-mail para {$this->usuario->email}: {$exception->getMessage()}");
-    }
 }

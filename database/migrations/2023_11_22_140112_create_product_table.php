@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('produto');
             $table->integer('quantidade');
-            $table->integer('estoque')->after('quantidade');
+            $table->integer('estoque');
             $table->timestamps();
         });
     }
