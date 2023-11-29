@@ -1,3 +1,4 @@
+----------------------------------Events-----------------------------------------------
 Trabalhando com Events e seus Listeners no Laravel.
 
  - Vantages: desacoplamento do código
@@ -16,7 +17,7 @@ Trabalhando com Events e seus Listeners no Laravel.
 8 - implement no handles o que deve ser executado no evento
 
 
-----------------------------------FLUXO----------------------------------
+FLUXO:
 VIEW -> ROUTE -> CONTROLLER(Encaminha para events através do dispacher)-----> 
 EVENTS(aqui ocorre implentações no controller)--->LISTNER(executa através do handle o que o evento deve executatr)
 
@@ -49,7 +50,12 @@ php artisan make:job EnviarEmailUser
 
 6 - criar um controller para cadastrar usuario do sistema
 php artisan make:controller ControllerUser
+3 -  php artisan tinker
+pelo proprio tinker consigo atribuir um valor para variavel e se não bastasse consigo testar o email
 
+ $sales = 150;
+//=150                                                                                                                                                                                                       
+ Mail::to('gabrielrhodden@gmail.com')->send(new App\Mail\DailyReport($sales));     
 7- implemente seu codigo no controller e no jobs
 
 8 - php artisan queue:work database --tries=5
@@ -59,10 +65,63 @@ daemon:melhora performance de processamento (cpu)
 obs: para visualizar a fila trabalhando é só cadastrar os usuários depois roda a fila->
 php artisan queue:work database --tries=5
 -------------------------------------------------Task Shedule----------------------------------------------------------
-1 - crie um comando:
-php artisan make:command Enviaremail
 
-2 - é criado um arquivo em:
-app\Console\Commands\Enviaremail.php
+1 - php artisan make:mail DailyReport --markdown=taskShedule.daily
+criar um classe (DailyReport) para envio de email e --markdown=taskShedule.daily cria a view (daily.blade.php)
 
+2 - crie uma variavel e passe para view o corpo email que sera um relatorio, nesse caso $sales
+
+3 - php artisan tinker
+pelo proprio tinker consigo atribuir um valor para variavel e se não bastasse consigo testar o email
+ $sales = 150;        dd($sales) imprime o valor
+ Mail::to('gabrielrhodden@gmail.com')->send(new App\Mail\DailyReport($sales));     
+
+4 - php artisan make:command SendDailyReportEmail
+crie o comando  em app/console/commands/    
+
+defina: protected $signature = 'comand:report';
+teste
+php artisan help comand:report
+
+ou 
+
+protected $signature = 'send:report';
+teste
+php artisan help send:report
+
+4 Na class SendDailyReportEmail extends Command
+implemente:    
+
+public function handle()
+    {
+        $sales = 2303;
+        Mail::to('gabrielrhodden@gmail.com')->send(new DailyReport($sales));
+    }
+5 - php artisan send:report
+
+6 - agendar disparo automatico do comando report
+em  app\Console\Kernel.php
+
+  protected $commands = [
+        SendDailyReportEmail::class,
+     ];
+
+    protected function schedule(Schedule $schedule): void
+    {
+       $schedule->command(command:'send:report')->everyMinute();
+
+    }
+
+7 - php artisan schedule:run
+ Rodar o agendamento schedule
+
+8 - wsl -d distribution --user root 
+execute esse comando no powershell onde abrir a o linux
+
+9 - crontab -e
+implemente crontab
+* * * * * cd /mnt/c/Users/gabriel.rhoden/Desktop/testes_gerais/laravel-events && php artisan schedule:run >> /dev/null 2>&1
+
+
+10  - service cron start  // para verificar status:   service cron status
 

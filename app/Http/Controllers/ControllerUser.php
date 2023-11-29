@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Jobs\EnviarEmailUser;
 use App\Models\User;
 
+
 class ControllerUser extends Controller
 {
     public function saveUser(Request $request)
@@ -20,4 +21,6 @@ class ControllerUser extends Controller
         session(["msg" => "Cadastro realizado com sucesso!"]);
         return redirect("/enviaEmail");
     }
+
+
 }
