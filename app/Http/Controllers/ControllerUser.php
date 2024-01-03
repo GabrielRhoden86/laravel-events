@@ -1,7 +1,6 @@
 <?php
-
+//JOB
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Jobs\EnviarEmailUser;
 use App\Models\User;
@@ -16,6 +15,7 @@ class ControllerUser extends Controller
         $user->password = bcrypt(123456);
         $user->name = $request->name;
         $user->save();
+
         EnviarEmailUser::dispatch($user); //job
 
         session(["msg" => "Cadastro realizado com sucesso!"]);

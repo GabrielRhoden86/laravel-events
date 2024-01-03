@@ -112,8 +112,8 @@ em  app\Console\Kernel.php
 
     }
 
-7 - php artisan schedule:run
- Rodar o agendamento schedule
+7 - php artisan schedule:run      
+ Rodar o agendamento schedule      // php artisan schedule:list    listar tasks  
 
 8 - wsl -d distribution --user root 
 execute esse comando no powershell onde abrir a o linux

@@ -25,9 +25,7 @@ class EnviarEmailUser implements ShouldQueue
 
     public function handle(): void
     {
-
         try {
-            //Lógica para enviar o e-mail
             Mail::send('emails', ['dados' => $this->usuario], function ($message) {
                 $usuario_cadastrado = ucfirst($this->usuario->name);
                 $message->from('gabrielrhodden@gmail.com');

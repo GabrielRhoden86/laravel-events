@@ -71,11 +71,6 @@ return [
     */
 
     'timezone' => 'America/Sao_Paulo',
-<<<<<<< HEAD
-=======
-
->>>>>>> 0676598b811606f076570f160bf10c93d67ee3ff
-
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

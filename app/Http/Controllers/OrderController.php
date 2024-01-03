@@ -1,5 +1,6 @@
 <?php
 
+//EVENTS
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
@@ -26,7 +27,6 @@ class OrderController extends Controller
         //event(new OrderPlaced($produto, 'OrderSend'));
         //event(new OrderPlaced($produto, 'OrderSendDecrement'));
 
-
         $quantidadeProduto = $produto->quantidade; // Obtenha o valor do estoque antes de excluir
         $estoqueProduto = $produto->estoque;
 
@@ -35,9 +35,5 @@ class OrderController extends Controller
         // Redirecione de volta à página
         return redirect("/event");
     }
-
-
-
-
 
 }

@@ -39,9 +39,6 @@ class DailyReport extends Mailable
 
         public function build()
         {
-            $user = auth()->user();
-            //return $this->view('taskShedule.daily', ['sales' => $this->sales, 'user' => $user]);
-
             return $this->view('taskShedule.daily', ['sales' => $this->sales,'date' => $this->date]);
         }
 
