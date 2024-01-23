@@ -1,0 +1,20 @@
+@import 'bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+/* conteúdo geral da pagina */
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.footer-content {
+    background-color: rgb(222, 223, 224);
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

@@ -1,25 +1,3 @@
-----------------------------------Events-----------------------------------------------
-Trabalhando com Events e seus Listeners no Laravel.
-
- - Vantages: desacoplamento do código
- - Facilidade para chamar o evento em diferentes partes do codigo
- - Trabalhar com filas de maneira assicrona(em segundo plano)
-
-1 - php artisan make:event EventNavegation
-2 - php artisan make:listener ContadorNavegacao --event=EventNavegation
-3 - Em app\Providers\EventServiceProvider.php adicione as classes:
-    use App\Events\EventNavegation;
-    use App\Listeners\UserNavigationListener;  e adicione o EventNavegation e NavigationListener no array listen
-4 - construa um controller
-5 - contrua uma rota
-6 - criar a view para exibir os dados do evento e chama a rota do controller para executar o evento
-7 - implement o contrutor da classe do events
-8 - implement no handles o que deve ser executado no evento
-
-
-FLUXO:
-VIEW -> ROUTE -> CONTROLLER(Encaminha para events através do dispacher)-----> 
-EVENTS(aqui ocorre implentações no controller)--->LISTNER(executa através do handle o que o evento deve executatr)
 
 ----------------------------------Fila eventos-----------------------------------
 implemente essa classe no listener 
