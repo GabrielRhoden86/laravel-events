@@ -1,10 +1,10 @@
 <?php
-//JOB
+// JOB
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Jobs\EnviarEmailUser;
 use App\Models\User;
-
 
 class ControllerUser extends Controller
 {
@@ -16,11 +16,9 @@ class ControllerUser extends Controller
         $user->name = $request->name;
         $user->save();
 
-        EnviarEmailUser::dispatch($user); //job
+        EnviarEmailUser::dispatch($user)->onQueue('events');
 
         session(["msg" => "Cadastro realizado com sucesso!"]);
         return redirect("/enviaEmail");
     }
-
-
 }

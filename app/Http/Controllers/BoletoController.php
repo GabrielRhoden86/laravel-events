@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use eduardokum\LaravelBoleto;
 use Illuminate\Support\Facades\Log;
-use App\Jobs\SendEmailJob;
+use App\Jobs\EmailsBoletos;
 use Illuminate\Support\Facades\Queue;
 
 class BoletoController extends Controller
@@ -37,7 +37,7 @@ class BoletoController extends Controller
         $DataImpresaoBoletoFormat =  $DataImpresaoBoleto .' 00:00:00.000';
 
         //Profisionais
-        $dadosBoletosPro = DB::select("SELECT * FROM laravel.profissionais
+        $dadosBoletosPro = DB::select("SELECT * FROM `fila-laravel`.profissionais
         WHERE `Data Vencto` BETWEEN '$inicioVencimentoFormat' AND '$fimVencimentoFormat'
         AND `Tipo Registro` = 1
         AND `Codigo Barras` IS NOT NULL
@@ -58,6 +58,7 @@ class BoletoController extends Controller
         //                                 and a.[Data Impressao] = '$impresao 00:00:00.000'
         //                                 ORDER BY a.[Nome] ASC");
 
+        //dd($dadosBoletosPro);
 
         if ($tipoContadorBoleto == "profissionais") {
             $dadosBoletos = $dadosBoletosPro;
@@ -74,60 +75,62 @@ class BoletoController extends Controller
         foreach ($boletosChunks as $boletosChunk) {
             foreach ($boletosChunk as $dados) {
 
-                $beneficiario = new \Eduardokum\LaravelBoleto\Pessoa(
-                    [
-                        'nome'      => 'CONSELHO REGIONAL DE CONTABILIDADE DO PARANÁ ',
-                        'endereco'  => 'RUA XV DE NOVEMBRO, 2987 - ALTO DA XV',
-                        'cep'       => '80045-340',
-                        'uf'        => 'PR',
-                        'cidade'    => 'CURITIBA',
-                        'documento' => '76.592.559/0001-10',
-                    ]
-                );
+                // $beneficiario = new \Eduardokum\LaravelBoleto\Pessoa(
+                //     [
+                //         'nome'      => 'CONSELHO REGIONAL DE CONTABILIDADE DO PARANÁ ',
+                //         'endereco'  => 'RUA XV DE NOVEMBRO, 2987 - ALTO DA XV',
+                //         'cep'       => '80045-340',
+                //         'uf'        => 'PR',
+                //         'cidade'    => 'CURITIBA',
+                //         'documento' => '76.592.559/0001-10',
+                //     ]
+                // );
 
-                $pagador = new \Eduardokum\LaravelBoleto\Pessoa(
-                    [
-                        'nome'      => $dados->Nome,
-                        'endereco'  => 'R. XV de Novembro, 2987 - Alto da XV, Curitiba - PR',
-                        'bairro'    => 'Alto da XV',
-                        'cep'       => '80045-340',
-                        'uf'        => 'PR',
-                        'cidade'    => '80045-340',
-                        'documento' => 'Curitiba',
-                    ]
-                );
+                // $pagador = new \Eduardokum\LaravelBoleto\Pessoa(
+                //     [
+                //         'nome'      => $dados->Nome,
+                //         'endereco'  => 'R. XV de Novembro, 2987 - Alto da XV, Curitiba - PR',
+                //         'bairro'    => 'Alto da XV',
+                //         'cep'       => '80045-340',
+                //         'uf'        => 'PR',
+                //         'cidade'    => '80045-340',
+                //         'documento' => 'Curitiba',
+                //     ]
+                // );
 
                 //$boleto = new \Eduardokum\LaravelBoleto\Boleto\Banco\Caixa;
                 $boleto = new \Eduardokum\LaravelBoleto\Boleto\Banco\Bb;
-                $boleto->setDataVencimento(new \Carbon\Carbon($dados->{'Data Vencto'}))
-                    ->setValor($dados->{'Total guia'})
+                //$boleto->setDataVencimento(new \Carbon\Carbon($dados->{'Data Vencto'}));
+                  //  ->setValor($dados->{'Total guia'})
                     //->setNumero(066891.5) caixa
-                    ->setNumero(3646640)
-                    ->setNumeroDocumento($dados->{'Num. Registro'})
-                     ->setPagador($pagador)
-                     ->setBeneficiario($beneficiario)
-                    ->setCarteira('17')
+                    //->setNumero(3646640)
+                    //->setNumeroDocumento($dados->{'Num. Registro'})
+                     //->setPagador($pagador)
+                     //->setBeneficiario($beneficiario)
+                    //->setCarteira('17')
                     //->setAgencia('0373-5') caixa
-                    ->setAgencia('3793')
+                    //->setAgencia('3793')
                     //->setCodigoBoleto($dados->{'Codigo Barras'})
                     //->setNossoNumero($dados->{'Numero Guia Formatado'})
                     //->setCodigoCliente('066891-9') caixa
                     //->setCodigoCliente('3646640')
                     // ->setDescricaoDemonstrativo([$dados->{'Mensagem Formatada Reduzida'}])
                     // ->setInstrucoes([$dados->{'Mensagem Formatada Reduzida'}])
-                    ->setLogo('/var/www/html/crcpr-boletos/public/storage/logo2-crcA.png');
+                    //->setLogo('/var/www/html/crcpr-boletos/public/storage/logo2-crcA.png');
 
-                $nomeArquivo = $dados->{'Numero Guia'};
-                $pdf = new \Eduardokum\LaravelBoleto\Boleto\Render\Pdf();
-                $pdf->addBoleto($boleto);
+                //$nomeArquivo = $dados->{'Numero Guia'};
+                //$pdf = new \Eduardokum\LaravelBoleto\Boleto\Render\Pdf();
+                ///$pdf->addBoleto($boleto);
                 //dd($pdf);
                 //$pdf->gerarBoleto($pdf::OUTPUT_DOWNLOAD);
-                $teste = $pdf->gerarBoleto($pdf::OUTPUT_SAVE, '/var/www/html/crcpr-boletos/storage' . DIRECTORY_SEPARATOR . 'boletos' . DIRECTORY_SEPARATOR . $nomeArquivo . '.pdf');
+               // $pdf->gerarBoleto($pdf::OUTPUT_SAVE, '/var/www/html/crcpr-boletos/storage' . DIRECTORY_SEPARATOR . 'boletos' . DIRECTORY_SEPARATOR . $nomeArquivo . '.pdf');
 
-                $pdfPath = '/var/www/html/crcpr-boletos/storage/boletos/' . $nomeArquivo . '.pdf';
+                //$pdfPath = '/var/www/html/crcpr-boletos/storage/boletos/' . $nomeArquivo . '.pdf';
                 $userName = $dados->Nome;
                 $userEmail = $dados->{'E-Mail'};
-                SendEmailJob::dispatch($userName, $userEmail, $pdfPath)->onQueue('emails');
+
+                EmailsBoletos::dispatch($userName, $userEmail)->onQueue('emailBoleto');
+
             }
         }
 
