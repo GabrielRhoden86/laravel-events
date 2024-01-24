@@ -37,7 +37,7 @@ class BoletoController extends Controller
         $DataImpresaoBoletoFormat =  $DataImpresaoBoleto .' 00:00:00.000';
 
         //Profisionais
-        $dadosBoletosPro = DB::select("SELECT * FROM `fila-laravel`.profissionais
+        $dadosBoletos = DB::select("SELECT * FROM `fila-laravel`.profissionais
         WHERE `Data Vencto` BETWEEN '$inicioVencimentoFormat' AND '$fimVencimentoFormat'
         AND `Tipo Registro` = 1
         AND `Codigo Barras` IS NOT NULL
@@ -60,10 +60,10 @@ class BoletoController extends Controller
 
         //dd($dadosBoletosPro);
 
-        if ($tipoContadorBoleto == "profissionais") {
-            $dadosBoletos = $dadosBoletosPro;
-            $documento = 'CPF';
-        }
+        // if ($tipoContadorBoleto == "profissionais") {
+        //     $dadosBoletos = $dadosBoletosPro;
+        //     $documento = 'CPF';
+        // }
         // else {
         //     $dadosBoletos = $dadosBoletosEmpr;
         //     $documento = 'CGC';
@@ -73,6 +73,8 @@ class BoletoController extends Controller
         $boletosChunks = array_chunk($dadosBoletos, $chunkSize);
 
         foreach ($boletosChunks as $boletosChunk) {
+
+
             foreach ($boletosChunk as $dados) {
 
                 // $beneficiario = new \Eduardokum\LaravelBoleto\Pessoa(

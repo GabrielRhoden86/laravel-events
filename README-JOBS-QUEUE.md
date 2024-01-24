@@ -13,13 +13,7 @@ php artisan make:job EnviarEmailUser
 
 ## 6 - criar um controller para cadastrar usuario do sistema
 php artisan make:controller ControllerUser
-
-## 3 -  php artisan tinker
-pelo proprio tinker consigo atribuir um valor para variavel e se não bastasse consigo testar o email
- $sales = 150;
-                                                                                                                                                                
-Mail::to('gabrielrhodden@gmail.com')->send(new App\Mail\DailyReport($sales));    
-
+                                                                                                                                             
 ## 7- implemente seu codigo no controller e no jobs
 
 ## 8 - php artisan queue:work database --tries=5
@@ -29,3 +23,4 @@ daemon:melhora performance de processamento (cpu)
 
 obs: para visualizar a fila trabalhando é só cadastrar os usuários depois roda a fila->
 php artisan queue:work database --tries=5
+

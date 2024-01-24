@@ -23,14 +23,13 @@ class EmailsBoletos implements ShouldQueue
         $this->userEmail = $userEmail;
     }
 
-
     public function handle(): void
     {
         try {
-            Mail::send('boletosProfissionais', ['dados' => $this->userName], function ($message) {
+            Mail::send('/boletos/boletosProfissionais', ['dados' => $this->userName], function ($message) {
                 $usuario_cadastrado = ucfirst($this->userName);
                 $message->from('gabrielrhodden@gmail.com');
-                $message->to($this->userEmail, $this->userName)->subject("Bem-Vindo Sr(a) {$usuario_cadastrado} a Tech Sistems");
+                $message->to($this->userEmail, $this->userName)->subject("Bem-Vindo Sr(a) {$usuario_cadastrado} segue o boleto:");
             });
             Log::info('Job Boletos executado com sucesso.');
         } catch (\Exception $e) {

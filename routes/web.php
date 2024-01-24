@@ -15,8 +15,6 @@ Route::get('/emails', function () {
     return view('emails');
 })->name('emails');
 
-Route::get('/testes/testing', [ControllerTeste::class, 'test']);
-
 //Rotas de envio de email envio
 Route::post('/eventProcess/{id}', [OrderController::class, 'placeOrder']);
 
