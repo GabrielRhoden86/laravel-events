@@ -11,14 +11,14 @@
 </head>
 
 <body class="bg-light container-master">
-    @include('boletos.header')
-
+    @include('header')
     <div class="d-flex">
         <div class="container h-100">
 
             @yield('content')
+
         </div>
     </div>
-    @include('boletos.footer')
+    @include('footer')
 </body>
 </html>

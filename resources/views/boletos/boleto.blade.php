@@ -27,7 +27,6 @@
             <div class="form-group col-md-12">
                 <input type="date" class="form-control" id="inicioImprecao" name="inicioImprecao">
             </div>
-
             <label for="inicio" class="ml-3"><b>Data de Vencimento:</b></label>
             <div class="form-group col-md-12">
                 <input type="date" class="form-control" id="inicio" name="inicio">

@@ -7,28 +7,28 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="" class="nav-link">
                     <i class="fa fa-user"></i> Cadastro usuário
-                </a>
+                </a> --}}
             </li>
             <li class="nav-item">
-                <a href="" class="nav-link">
-                    <i class="fa fa-user"></i> Disparo e-mail
+                <a href="/boletos/boleto" class="nav-link">
+                    <i class="fa fa-user"></i> Envio Boletos
                 </a>
             </li>
-            <li class="nav-item mr-5">
+            {{-- <li class="nav-item mr-5">
                 <a href="" class="nav-link">
                     <i class="fa fa-user"></i> Administrador
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="/cadastroUsuario" class="nav-link">
                     <i class="fa fa-user"></i> Cadastrar
                 </a>
             </li>
             <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="/" class="nav-link">
                     <i class="fa fa-user"></i> Entrar
                 </a>
             </li>

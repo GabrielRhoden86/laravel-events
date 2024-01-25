@@ -1,5 +1,16 @@
-## 1 - em config\queue.php
+---------------------------------------------JOBS QUEUE-----------------------------------
+Indicados para filas grandes executadas em segundo plano
+
+## 1 - em config\queue.php e .ENV
+database
 'default' => env('QUEUE_CONNECTION', 'sync') para isso: 'default' => env('QUEUE_CONNECTION', 'database')
+.env QUEUE_CONNECTION=database
+
+ou redis
+'default' => env('QUEUE_CONNECTION', 'redis'),
+QUEUE_CONNECTION=redis
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
 
 ## 2 -  criar tabelas jobs
 php artisan queue:table
@@ -22,5 +33,6 @@ daemon:melhora performance de processamento (cpu)
 --tries=5: tentativas após falha
 
 obs: para visualizar a fila trabalhando é só cadastrar os usuários depois roda a fila->
-php artisan queue:work database --tries=5
+php artisan queue:work --queue=emailBoleto --tries=5
 
+php artisan queue:clear database --queue=emailBoleto  -> limpa fila

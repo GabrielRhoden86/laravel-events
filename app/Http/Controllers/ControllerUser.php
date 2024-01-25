@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Jobs\EnviarEmailUser;
+use App\Jobs\EmailCadastroUserJob;
 use App\Models\User;
 
 class ControllerUser extends Controller
@@ -12,13 +12,13 @@ class ControllerUser extends Controller
     {
         $user = new User();
         $user->email = $request->email;
-        $user->password = bcrypt(123456);
+        $user->password = bcrypt($request->password);
         $user->name = $request->name;
         $user->save();
 
-        EnviarEmailUser::dispatch($user)->onQueue('events');
+        EmailCadastroUserJob::dispatch($user)->onQueue('events');
 
         session(["msg" => "Cadastro realizado com sucesso!"]);
-        return redirect("/enviaEmail");
+        return redirect("/cadastroUsuario");
     }
 }

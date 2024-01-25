@@ -5,14 +5,17 @@ use Illuminate\Http\Request;
 
 class ControllerEmails extends Controller
 {
-    public function index()
+    private $tituloPage;
+
+    public function __construct()
     {
-       return view('emails');
+        $this->tituloPage = null;
     }
 
-    public function formMail()
+    public function cadastroUser()
     {
-        return view("enviaEmail");
+        $this->tituloPage = "Cadastro Usuário";
+        return view('cadastroUsuario', ["titulo" => $this->tituloPage]);
     }
 
 }

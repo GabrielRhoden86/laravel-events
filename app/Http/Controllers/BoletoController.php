@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use eduardokum\LaravelBoleto;
 use Illuminate\Support\Facades\Log;
-use App\Jobs\EmailsBoletos;
+use App\Jobs\EmailsBoletosJob;
 use Illuminate\Support\Facades\Queue;
 
 class BoletoController extends Controller
@@ -131,7 +131,7 @@ class BoletoController extends Controller
                 $userName = $dados->Nome;
                 $userEmail = $dados->{'E-Mail'};
 
-                EmailsBoletos::dispatch($userName, $userEmail)->onQueue('emailBoleto');
+                EmailsBoletosJob::dispatch($userName, $userEmail)->onQueue('emailBoleto');
 
             }
         }

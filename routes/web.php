@@ -6,25 +6,23 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ControllerEmails;
 use App\Http\Controllers\ControllerUser;
 use App\Http\Controllers\BoletoController;
+use App\Http\Controllers\ControllerAcesso;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Login
+Route::get('/', [ControllerAcesso::class, 'index']);
 
-Route::get('/emails', function () {
-    return view('emails');
-})->name('emails');
 
-//Rotas de envio de email envio
+Route::get('/emailCadastroUsuario', function () {
+    return view('emailCadastroUsuario');
+})->name('emailCadastroUsuario');
+
+//Rotas de envio events
 Route::post('/eventProcess/{id}', [OrderController::class, 'placeOrder']);
-
 Route::get('/event', [OrderController::class, 'index']);
 Route::get('/event', [OrderController::class, 'index']);
 
-//Rotas de envio de email jobs
-Route::get('/emails', [ControllerEmails::class, 'index']);
-Route::get('/enviaEmail', [ControllerEmails::class, 'formMail']);
-Route::get('/saveUserForm/{name}/{email}', [ControllerUser::class, 'saveUser']);
+Route::get('/cadastroUsuario', [ControllerEmails::class, 'cadastroUser']);
+Route::get('/cadastroUsuario/{name}/{email}', [ControllerUser::class, 'saveUser']);
 
 Route::post('/gerar-boleto', [BoletoController::class, 'gerarBoleto']);
 Route::get('/boletos/boleto', [BoletoController::class, 'viewBoleto']);

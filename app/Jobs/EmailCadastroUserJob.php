@@ -3,38 +3,39 @@
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
-class EmailsBoletos implements ShouldQueue
+class EmailCadastroUserJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    protected $usuario;
 
-    protected $userName;
-    protected $userEmail;
-
-    public function __construct($userName, $userEmail)
+    public function __construct(User $usuario)
     {
-        $this->userName = $userName;
-        $this->userEmail = $userEmail;
+        $this->usuario = $usuario;
     }
 
     public function handle(): void
     {
         try {
-            Mail::send('/boletos/boletosProfissionais', ['dados' => $this->userName], function ($message) {
-                $usuario_cadastrado = ucfirst($this->userName);
+            Mail::send('emailCadastroUsuario', ['dados' => $this->usuario], function ($message) {
+                $usuario_cadastrado = ucfirst($this->usuario->name);
                 $message->from('gabrielrhodden@gmail.com');
-                $message->to($this->userEmail, $this->userName)->subject("Bem-Vindo Sr(a) {$usuario_cadastrado} segue o boleto:");
+                $message->to($this->usuario->email, $this->usuario->name)->subject("Bem-Vindo Sr(a) {$usuario_cadastrado} a Tech Sistems");
             });
-            Log::info('Job Boletos executado com sucesso.');
+            Log::info('Job executado com sucesso.');
         } catch (\Exception $e) {
             Log::error('Erro no job: ' . $e->getMessage());
             throw $e;
         }
+
     }
 }
